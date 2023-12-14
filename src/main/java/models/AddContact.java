@@ -8,7 +8,7 @@ import utils.RoundedBorder;
 
 public class AddContact extends JFrame {
 
-    private JTextField nameField;
+    private JTextField  nameField;
     private JTextField emailField;
     private JTextField phoneField;
     private RoundedBorder saveButton;

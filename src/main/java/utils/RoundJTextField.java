@@ -14,7 +14,6 @@ public class RoundJTextField extends JTextField {
     private Shape shape;
     public RoundJTextField(String hint, int columns) {
         super(hint,columns);
-        
         setOpaque(false);
         setForeground(Color.GRAY);
         setFont(new Font("Arial", Font.BOLD, 12));
