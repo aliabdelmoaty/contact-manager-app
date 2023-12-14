@@ -1,54 +1,90 @@
 package models;
 
 import java.awt.Color;
+
 import javax.swing.*;
 
+import utils.Images;
 import utils.RoundJTextField;
 import utils.RoundedBorder;
 
 public class AddContact extends JFrame {
 
-    private JTextField  nameField;
+    // TextFields for user input
+    private JTextField nameField;
     private JTextField emailField;
     private JTextField phoneField;
-    private RoundedBorder saveButton;
+    private JTextField addressField;
+
+    // Buttons for actions
+    private JButton addButton;
+    private JButton clearButton;
+
+    // Labels for guiding user input
     private JLabel labelName;
     private JLabel labelEmail;
     private JLabel labelPhone;
+    private JLabel labelAddress;
 
+    // Constructor to set up the UI
     AddContact() {
+        // Set up the JFrame
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false);
         setTitle("Contacts");
 
-        nameField = new RoundJTextField("Enter name",30);
-        emailField = new RoundJTextField("Enter email",30);
-        phoneField = new RoundJTextField("Enter phone",30);
-        saveButton = new RoundedBorder("Save");
-        saveButton.setBackground(Color.RED);
+        // Initialize textFields with default hints
+        nameField = new RoundJTextField("Enter name", 30);
+        emailField = new RoundJTextField("Enter email", 30);
+        phoneField = new RoundJTextField("Enter phone", 30);
+        addressField = new RoundJTextField("Enter address", 30);
+
+        // Initialize buttons with icons, background, and text color
+        addButton = new RoundedBorder("Add");
+        addButton.setIcon(Images.addIconImage());
+        addButton.setBackground(Color.black);
+        addButton.setForeground(Color.white);
+
+        clearButton = new RoundedBorder("Clear");
+        clearButton.setIcon(Images.clearImageIcon());
+        clearButton.setBackground(Color.black);
+        clearButton.setForeground(Color.white);
+
+        // Initialize labels to guide user input
         labelName = new JLabel("Name");
         labelEmail = new JLabel("Email");
         labelPhone = new JLabel("Phone");
-        
-        labelName.setBounds(15, 10, 70, 10);
-        nameField.setBounds(15, 25, 200, 20);
+        labelAddress = new JLabel("Address");
 
-        labelEmail.setBounds(15, 55, 70, 10);
-        emailField.setBounds(15, 70, 200, 20);
-        labelPhone.setBounds(15, 100, 70, 10);
-        phoneField.setBounds(15, 115, 200, 20);
+        // Set the location of components on the JFrame
+        labelName.setBounds(15, 10, 70, 15);
+        nameField.setBounds(15, 30, 200, 20);
 
-        saveButton.setBounds(5, 250, 70, 30);
-        saveButton.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1, true));
+        labelEmail.setBounds(15, 60, 70, 15);
+        emailField.setBounds(15, 75, 200, 20);
+
+        labelPhone.setBounds(15, 105, 70, 15);
+        phoneField.setBounds(15, 120, 200, 20);
+
+        labelAddress.setBounds(15, 150, 80, 15);
+        addressField.setBounds(15, 165, 200, 20);
+
+        addButton.setBounds(5, 250, 90, 30);
+        clearButton.setBounds(110, 250, 90, 30);
+
+        // Add components to the JFrame
         add(nameField);
         add(emailField);
         add(phoneField);
-        add(saveButton);
+        add(addressField);
+        add(addButton);
+        add(clearButton);
         add(labelName);
         add(labelEmail);
         add(labelPhone);
+        add(labelAddress);
         this.setVisible(true);
     }
 
