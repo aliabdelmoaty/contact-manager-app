@@ -1,12 +1,13 @@
 package models;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import utils.Images;
-import utils.RoundJTextField;
-import utils.RoundedBorder;
+import utils.*;
+import logic.SQLServer;
 
 public class AddContact extends JFrame {
 
@@ -27,7 +28,7 @@ public class AddContact extends JFrame {
     private JLabel labelAddress;
 
     // Constructor to set up the UI
-    AddContact() {
+    public AddContact() {
         // Set up the JFrame
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,12 +37,97 @@ public class AddContact extends JFrame {
         setTitle("Contacts");
 
         // Initialize textFields with default hints
-        nameField = new RoundJTextField("Enter name", 30);
-        emailField = new RoundJTextField("Enter email", 30);
-        phoneField = new RoundJTextField("Enter phone", 30);
-        addressField = new RoundJTextField("Enter address", 30);
+        TextFields();
 
         // Initialize buttons with icons, background, and text color
+        Buttons();
+
+        // Initialize labels to guide user input
+        Labels();
+        // Set the location of components on the JFrame
+        setBounds();
+
+        // get name and email and address and phone
+
+        ActionButtons();
+
+        // Add components to the JFrame
+        addComponents();
+        this.setVisible(true);
+    }
+
+    private void Labels() {
+        labelName = new JLabel("Name");
+        labelEmail = new JLabel("Email");
+        labelPhone = new JLabel("Phone");
+        labelAddress = new JLabel("Address");
+
+    }
+
+    private void ActionButtons() {
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String email = emailField.getText();
+                String address = addressField.getText();
+                String phoneText = phoneField.getText();
+                int phone = 0;
+                if (!phoneText.equals(Hints.hintPhone)) {
+                    phone = Integer.parseInt(phoneText);
+                }
+                // Add action listener to clear button
+                try {
+                    if (Validation.validationName(name) == true) {
+                        if (Validation.validationEmail(email) == true) {
+                            if (Validation.validationPhone(phoneText)) {
+                                SQLServer.insertData(name, email, phone, address);
+                                JOptionPane.showMessageDialog(rootPane, "Contact added successfully");
+                                nameField.setText(Hints.hintName);
+                                emailField.setText(Hints.hintEmail);
+                                phoneField.setText(Hints.hintPhone);
+                                addressField.setText(Hints.hintAddress);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error: Invalid Phone");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error: Invalid Email");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error: Invalid Name");
+                    }
+                } catch (HandleErrors error) {
+                    error.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error: " + error.getMessage());
+                }
+
+            }
+        });
+        clearButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // JOptionPane.showMessageDialog(rootPane, e, getTitle(), ABORT);
+                int option =JOptionPane.showConfirmDialog(rootPane, "Do you want to clear this contact ", "title", JOptionPane.YES_OPTION);
+                
+                if(option == JOptionPane.YES_OPTION){nameField.setText(Hints.hintName);
+                emailField.setText(Hints.hintEmail);
+                phoneField.setText(Hints.hintPhone);
+                addressField.setText(Hints.hintAddress);}
+                
+            }
+
+        });
+    }
+
+    private void TextFields() {
+        nameField = new RoundJTextField(Hints.hintName, 30);
+        emailField = new RoundJTextField(Hints.hintEmail, 30);
+        phoneField = new RoundJTextField(Hints.hintPhone, 30);
+        addressField = new RoundJTextField(Hints.hintAddress, 30);
+    }
+
+    private void Buttons() {
         addButton = new RoundedBorder("Add");
         addButton.setIcon(Images.addIconImage());
         addButton.setBackground(Color.black);
@@ -51,14 +137,10 @@ public class AddContact extends JFrame {
         clearButton.setIcon(Images.clearImageIcon());
         clearButton.setBackground(Color.black);
         clearButton.setForeground(Color.white);
+    }
 
-        // Initialize labels to guide user input
-        labelName = new JLabel("Name");
-        labelEmail = new JLabel("Email");
-        labelPhone = new JLabel("Phone");
-        labelAddress = new JLabel("Address");
-
-        // Set the location of components on the JFrame
+    // method set the location of components on the JFrame
+    private void setBounds() {
         labelName.setBounds(15, 10, 70, 15);
         nameField.setBounds(15, 30, 200, 20);
 
@@ -73,8 +155,10 @@ public class AddContact extends JFrame {
 
         addButton.setBounds(5, 250, 90, 30);
         clearButton.setBounds(110, 250, 90, 30);
+    }
 
-        // Add components to the JFrame
+    // method Add components to the JFrame
+    private void addComponents() {
         add(nameField);
         add(emailField);
         add(phoneField);
@@ -85,10 +169,6 @@ public class AddContact extends JFrame {
         add(labelEmail);
         add(labelPhone);
         add(labelAddress);
-        this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new AddContact();
-    }
 }
