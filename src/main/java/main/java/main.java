@@ -1,11 +1,11 @@
 package main.java;
 
 import logic.SQLServer;
-import models.AddContact;
+import models.addContact;
 
 public class main {
     public static void main(String[] args) {
         // SQLServer.connectToDatabase();
-        new AddContact();
+        new addContact();
     }
 }

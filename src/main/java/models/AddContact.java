@@ -9,7 +9,7 @@ import javax.swing.*;
 import utils.*;
 import logic.SQLServer;
 
-public class AddContact extends JFrame {
+public class addContact extends JFrame {
 
     // TextFields for user input
     private JTextField nameField;
@@ -26,24 +26,24 @@ public class AddContact extends JFrame {
     private JLabel labelEmail;
     private JLabel labelPhone;
     private JLabel labelAddress;
-
+    private LinePanel linePanel;
     // Constructor to set up the UI
-    public AddContact() {
+    public addContact() {
         // Set up the JFrame
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.setResizable(false);
         setTitle("Contacts");
-
+        linePanel = new LinePanel();
         // Initialize textFields with default hints
-        TextFields();
+        textFields();
 
         // Initialize buttons with icons, background, and text color
         Buttons();
 
         // Initialize labels to guide user input
-        Labels();
+        labels();
         // Set the location of components on the JFrame
         setBounds();
 
@@ -53,10 +53,11 @@ public class AddContact extends JFrame {
 
         // Add components to the JFrame
         addComponents();
+
         this.setVisible(true);
     }
 
-    private void Labels() {
+    private void labels() {
         labelName = new JLabel("Name");
         labelEmail = new JLabel("Email");
         labelPhone = new JLabel("Phone");
@@ -108,19 +109,22 @@ public class AddContact extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // JOptionPane.showMessageDialog(rootPane, e, getTitle(), ABORT);
-                int option =JOptionPane.showConfirmDialog(rootPane, "Do you want to clear this contact ", "title", JOptionPane.YES_OPTION);
-                
-                if(option == JOptionPane.YES_OPTION){nameField.setText(Hints.hintName);
-                emailField.setText(Hints.hintEmail);
-                phoneField.setText(Hints.hintPhone);
-                addressField.setText(Hints.hintAddress);}
-                
+                int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to clear this contact ", "title",
+                        JOptionPane.YES_OPTION);
+
+                if (option == JOptionPane.YES_OPTION) {
+                    nameField.setText(Hints.hintName);
+                    emailField.setText(Hints.hintEmail);
+                    phoneField.setText(Hints.hintPhone);
+                    addressField.setText(Hints.hintAddress);
+                }
+
             }
 
         });
     }
 
-    private void TextFields() {
+    private void textFields() {
         nameField = new RoundJTextField(Hints.hintName, 30);
         emailField = new RoundJTextField(Hints.hintEmail, 30);
         phoneField = new RoundJTextField(Hints.hintPhone, 30);
@@ -153,9 +157,12 @@ public class AddContact extends JFrame {
         labelAddress.setBounds(15, 150, 80, 15);
         addressField.setBounds(15, 165, 200, 20);
 
-        addButton.setBounds(5, 250, 90, 30);
+        addButton.setBounds(15, 250, 90, 30);
         clearButton.setBounds(110, 250, 90, 30);
+        linePanel.setBounds(10, 0, getWidth(), getHeight());
     }
+
+    
 
     // method Add components to the JFrame
     private void addComponents() {
@@ -169,6 +176,8 @@ public class AddContact extends JFrame {
         add(labelEmail);
         add(labelPhone);
         add(labelAddress);
+        add(linePanel);
+        // add(new setBounds());
     }
 
 }
