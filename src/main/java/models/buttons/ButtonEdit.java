@@ -1,40 +1,47 @@
 package models.buttons;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import utils.Button;
-import utils.Images;
 
-public class ButtonEdit extends JButton{
+public class ButtonEdit extends JPanel {
     private JButton editButton;
     private JButton saveButton;
     private JButton cancelButton;
 
-
-    private void setBoundsComponents() {
-        saveButton.setBounds(15, 250, 90, 30);
-        cancelButton.setBounds(110, 250, 90, 30);
-        editButton.setBounds(250, 10, 90, 30);
+    public ButtonEdit() {
+        initializeButtons();
+        setBoundsComponents();
+        addComponents();
+        this.setLayout(null);
+        setVisible(true);
 
     }
-    
+
+    private void setBoundsComponents() {
+        editButton.setBounds(250, 510, 90, 30);
+        saveButton.setBounds(370, 510, 90, 30);
+        cancelButton.setBounds(500, 510, 90, 30);
+
+    }
+
     private void addComponents() {
         add(saveButton);
         add(cancelButton);
         add(editButton);
     }
+
     private void initializeButtons() {
 
-
         editButton = new Button("Edit");
-        // editButton.setIcon(Images.editIconImage());
         editButton.setBackground(Color.black);
         editButton.setForeground(Color.white);
-
         saveButton = new Button("Save");
-        // saveButton.setIcon(Images.saveIconImage());
         saveButton.setBackground(Color.black);
         saveButton.setForeground(Color.white);
 
@@ -42,5 +49,31 @@ public class ButtonEdit extends JButton{
         cancelButton.setBackground(Color.black);
         cancelButton.setForeground(Color.white);
 
+    }
+
+    private void actionButtons(){
+        // Action for the Edit button
+        // editButton.addActionListener(e -> {
+        //     // Get the selected row index
+        //     int i = table.getSelectedRow();
+        //     if (i >= 0) {
+        //         // Remove the row from the table
+        //         model.removeRow(i);
+        //         System.out.println("Row deleted successfully");
+        //     } else {
+        //         System.out.println("Delete Error");
+        //     }
+        // });
+        // Action for the Save button
+      
+
+        editButton.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+            
+        });
     }
 }

@@ -8,30 +8,27 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import models.LabelsAndTextFields;
-import utils.Button;
-import utils.Hints;
-import utils.Images;
-import utils.Validation;
+import logic.SQLServer;
+import models.*;
+
+import utils.*;
 
 public class ButtonsAdd extends JPanel {
     private JButton addButton;
     private JButton clearButton;
-
+    public Table table;
     private LabelsAndTextFields gTextFields;
 
-    public ButtonsAdd(LabelsAndTextFields labelsAndTextFields) {
+    public ButtonsAdd(LabelsAndTextFields labelsAndTextFields, Table table) {
         initializeButtons();
         this.setLayout(null);
         this.gTextFields = labelsAndTextFields;
+        this.table = table;
         setBoundsComponents();
         addComponents();
         actionButtons();
-        setBackground(Color.red);
         setVisible(true);
     }
-
-  
 
     private void setBoundsComponents() {
         addButton.setBounds(15, 250, 90, 30);
@@ -46,11 +43,11 @@ public class ButtonsAdd extends JPanel {
 
     private void initializeButtons() {
         addButton = new Button("Add");
-        addButton.setIcon(Images.addIconImage());
+        addButton.setIcon(Constants.addIconImage());
         addButton.setBackground(Color.black);
         addButton.setForeground(Color.white);
         clearButton = new Button("Clear");
-        clearButton.setIcon(Images.clearImageIcon());
+        clearButton.setIcon(Constants.clearImageIcon());
         clearButton.setBackground(Color.black);
         clearButton.setForeground(Color.white);
     }
@@ -63,7 +60,29 @@ public class ButtonsAdd extends JPanel {
                     if (Validation.validationName(gTextFields.getName()) == true) {
                         if (Validation.validationEmail(gTextFields.getEmail()) == true) {
                             if (Validation.validationPhone(gTextFields.getPhone()) == true) {
-                                // TODO Set method Create table in Sql
+
+                                int phone;
+                                try {
+                                    phone = Integer.parseInt(gTextFields.getPhone());
+                                } catch (NumberFormatException NumberFormatException) {
+                                    phone = 0;
+
+                                }
+
+                                // table.addRow(new String[] {
+                                // "",
+                                // gTextFields.getName(), gTextFields.getEmail(),
+                                // gTextFields.getPhone(), gTextFields.getAddress(),
+                                // ""
+                                // });
+                                SQLServer.insertContact(gTextFields.getName(), gTextFields.getEmail(), phone,
+                                        gTextFields.getAddress());
+                                JOptionPane.showMessageDialog(null, "Record added successfully", "Successful!",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                                SQLServer.getContact(table);
+                                table.repaint();
+                                resetFields();
+
                             } else {
                                 JOptionPane.showMessageDialog(getRootPane(), "Enter a valid phone");
                             }
@@ -82,18 +101,23 @@ public class ButtonsAdd extends JPanel {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-  
+
                 int option = JOptionPane.showConfirmDialog(getRootPane(), "Do you want to clear this contact ", "title",
                         JOptionPane.YES_OPTION);
                 System.out.println(gTextFields.getName());
                 if (option == JOptionPane.YES_OPTION) {
-                    gTextFields.setName(Hints.hintName);
-                    gTextFields.setEmail(Hints.hintEmail);
-                    gTextFields.setPhone(Hints.hintPhone);
-                    gTextFields.setAddress(Hints.hintAddress);
+                    resetFields();
                 }
             }
+
         });
 
+    }
+
+    private void resetFields() {
+        gTextFields.setName(Hints.HINT_NAME);
+        gTextFields.setEmail(Hints.HINT_EMAIL);
+        gTextFields.setPhone(Hints.HINT_PHONE);
+        gTextFields.setAddress(Hints.HINT_ADDRESS);
     }
 }

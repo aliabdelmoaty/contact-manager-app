@@ -1,7 +1,6 @@
 package utils;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.event.FocusEvent;
@@ -12,7 +11,8 @@ import javax.swing.JTextField;
 
 public class RoundJTextField extends JTextField {
     private Shape shape;
- // Constructor for RoundJTextField
+
+    // Constructor for RoundJTextField
     public RoundJTextField(String hint, int columns) {
         // Call the superclass constructor with the hint and columns
         super(hint, columns);
@@ -24,7 +24,7 @@ public class RoundJTextField extends JTextField {
         setForeground(Color.GRAY);
 
         // Set the font to Arial, bold, with size 12
-        setFont(new Font("Arial", Font.BOLD, 12));
+        setFont(Constants.fontTextFiled());
 
         // Add a focus listener to handle focus gained and lost events
         addFocusListener(new FocusListener() {
@@ -53,7 +53,7 @@ public class RoundJTextField extends JTextField {
     // This method is called to paint the component
     protected void paintComponent(Graphics g) {
         // Set the color to the background color of the text field
-        g.setColor(getBackground());
+        g.setColor(Color.white);
 
         // Fill a rounded rectangle that fits the text field
         g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
@@ -63,7 +63,7 @@ public class RoundJTextField extends JTextField {
     }
 
     protected void paintBorder(Graphics g) {
-        g.setColor(getForeground());
+        g.setColor(Color.BLACK);
         g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
     }
 
@@ -74,6 +74,3 @@ public class RoundJTextField extends JTextField {
         return shape.contains(x, y);
     }
 }
-
-
-

@@ -1,9 +1,9 @@
 package utils;
 
 abstract public class Hints {
-    public static String hintName ="Enter name";
-    public static String hintEmail = "Enter email like ****@gmail.com";
-    public static String hintPhone = "Enter phone like 01********";
-    public static String hintAddress = "Enter address";
 
+    public static final String HINT_NAME = "Enter name";
+    public static final String HINT_EMAIL = "Enter email like ****@gmail.com";
+    public static final String HINT_PHONE = "Enter phone like 01********";
+    public static final String HINT_ADDRESS = "Enter address";
 }
