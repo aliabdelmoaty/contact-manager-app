@@ -60,28 +60,25 @@ public class ButtonsAdd extends JPanel {
                     if (Validation.validationName(gTextFields.getName()) == true) {
                         if (Validation.validationEmail(gTextFields.getEmail()) == true) {
                             if (Validation.validationPhone(gTextFields.getPhone()) == true) {
-
-                                int phone;
+                                if(Validation.validationAddress(gTextFields.getAddress())){
+                                    int phone;
                                 try {
                                     phone = Integer.parseInt(gTextFields.getPhone());
                                 } catch (NumberFormatException NumberFormatException) {
                                     phone = 0;
 
                                 }
-
-                                // table.addRow(new String[] {
-                                // "",
-                                // gTextFields.getName(), gTextFields.getEmail(),
-                                // gTextFields.getPhone(), gTextFields.getAddress(),
-                                // ""
-                                // });
                                 SQLServer.insertContact(gTextFields.getName(), gTextFields.getEmail(), phone,
                                         gTextFields.getAddress());
                                 JOptionPane.showMessageDialog(null, "Record added successfully", "Successful!",
                                         JOptionPane.INFORMATION_MESSAGE);
+                                table.clearTable();
                                 SQLServer.getContact(table);
                                 table.repaint();
                                 resetFields();
+                                }else{
+                                    JOptionPane.showMessageDialog(getRootPane(), "Enter a valid address");
+                                }
 
                             } else {
                                 JOptionPane.showMessageDialog(getRootPane(), "Enter a valid phone");
@@ -93,7 +90,8 @@ public class ButtonsAdd extends JPanel {
                         JOptionPane.showMessageDialog(getRootPane(), "Enter a valid name");
                     }
                 } catch (Exception e1) {
-                    // TODO: handle exception
+                    JOptionPane.showMessageDialog(null, "Failed to add record", "Error!",
+                                        JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -101,8 +99,8 @@ public class ButtonsAdd extends JPanel {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                int option = JOptionPane.showConfirmDialog(getRootPane(), "Do you want to clear this contact ", "title",
+                int option = JOptionPane.showConfirmDialog(getRootPane(), 
+                "Do you want to clear this contact ", "Delete",JOptionPane.YES_NO_OPTION,
                         JOptionPane.YES_OPTION);
                 System.out.println(gTextFields.getName());
                 if (option == JOptionPane.YES_OPTION) {

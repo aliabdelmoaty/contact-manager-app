@@ -38,7 +38,7 @@ public class Project extends JFrame {
         Table table = new Table();
         LabelsAndTextFields labelsAndTextFields = new LabelsAndTextFields();
         ButtonsAdd buttons = new ButtonsAdd(labelsAndTextFields, table);
-        ButtonEdit buttonEdit =new ButtonEdit();
+        ButtonEdit buttonEdit =new ButtonEdit(table);
         // Show loading dialog
         LoadingDialog loadingDialog = new LoadingDialog();
         loadingDialog.setVisible(true);

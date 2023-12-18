@@ -98,7 +98,7 @@ public class SQLServer {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
                 int columnCount = resultSetMetaData.getColumnCount();
-
+                
                 while (resultSet.next()) {
                     String[] data = new String[columnCount];
                     for (int i = 1; i <= columnCount; i++) {
@@ -119,7 +119,7 @@ public class SQLServer {
         try {
             connectToDatabase();
             preparedStatement = connection.prepareStatement(
-                    "UPDATE contacts SET name = ?, email = ?, phone = ?, address = ? WHERE id = ?");
+                    "UPDATE contacts SET  name = ?, email = ?, phone = ?, address = ? WHERE id = ?");
             preparedStatement.setString(1, newName);
             preparedStatement.setString(2, newEmail);
             preparedStatement.setInt(3, newPhone);

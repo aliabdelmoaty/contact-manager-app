@@ -3,23 +3,25 @@ package models;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import utils.Constants;
 
 public class Table extends JPanel {
-    // private JScrollPane scrollPane;
     private JScrollPane scrollPane;
-    private JTable table;
+    public JTable table;
     private DefaultTableModel tableModel;
-    public static  String data[][];
+    public static String data[][];
+
     public Table() {
         setLayout(null);
         String column[] = { "id", "Name", "Email", "Phone", "Address", "Time" };
-        data =new String[][]{};
-        // add(scrollPane);
-        tableModel =new DefaultTableModel(data, column);
+        data = new String[][] {};
+        tableModel = new DefaultTableModel(data, column);
         table = new JTable(tableModel);
         setColumnWidths();
         table.getTableHeader().setResizingAllowed(false);
@@ -30,11 +32,38 @@ public class Table extends JPanel {
         scrollPane.setBounds(0, 0, 600, 400);
         add(scrollPane);
 
+        addTableSelectionListener();
     }
 
     public void addRow(String[] rowData) {
-        // Add a new row to the table
-        ((javax.swing.table.DefaultTableModel) table.getModel()).addRow(rowData);
+        ((DefaultTableModel) table.getModel()).addRow(rowData);
+    }
+
+    public void clearTable() {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+    }
+
+    public int getSelectedRow() {
+        return table.getSelectedRow();
+    }
+    public void deleteContact(int selectedRow){
+        ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
+    }
+    public Object getValueAt(int row, int column) {
+        return table.getValueAt(row, column);
+    }
+    private void addTableSelectionListener() {
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    
+                }
+            }
+        });
     }
 
     private void setColumnWidths() {

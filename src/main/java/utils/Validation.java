@@ -17,7 +17,7 @@ abstract public class Validation {
             if(address.equals(Hints.HINT_ADDRESS)){
             return false;
         }
-        // Validate name (at least 2 characters)
+        // Validate Address (at least 2 characters)
         return address.length() >= 2 && address.matches("[a-zA-Z]+[a-zA-Z ]*");
 
     }
@@ -38,6 +38,7 @@ abstract public class Validation {
             return false;
         }
         // Validate phone (11 digits starting with "01" for Egypt)
-        return phone.length() == 11 && phone.matches("01[0-9]{9}");
+         return phone.matches("[01][1250][0-9]{7,9}");
+
     }
 }
