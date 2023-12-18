@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 
-public class RoundedBorder extends JButton {
+public class Button extends JButton {
     // Default values
     private static final Color DEFAULT_BG_COLOR = new Color(102, 204, 255);
     private static final Color DEFAULT_TEXT_COLOR = Color.WHITE;
@@ -18,7 +18,7 @@ public class RoundedBorder extends JButton {
     private boolean isPressed = false;
 
     // Constructor taking the text
-    public RoundedBorder(String text) {
+    public Button(String text) {
         this(text, DEFAULT_BG_COLOR, DEFAULT_TEXT_COLOR);
         addActionListener(new ActionListener() {
             @Override
@@ -42,7 +42,7 @@ public class RoundedBorder extends JButton {
     }
 
     // Constructor taking the text and the color of the button
-    public RoundedBorder(String text, Color bgColor, Color textColor) {
+    public Button(String text, Color bgColor, Color textColor) {
         super(text);
         setFont(new Font("Arial", Font.BOLD, 12));
         setContentAreaFilled(true);

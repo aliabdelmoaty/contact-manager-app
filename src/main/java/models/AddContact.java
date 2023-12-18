@@ -9,7 +9,7 @@ import javax.swing.*;
 import utils.*;
 import logic.SQLServer;
 
-public class addContact extends JFrame {
+public class AddContact extends JFrame {
 
     // TextFields for user input
     private JTextField nameField;
@@ -28,7 +28,7 @@ public class addContact extends JFrame {
     private JLabel labelAddress;
     private LinePanel linePanel;
     // Constructor to set up the UI
-    public addContact() {
+    public AddContact() {
         // Set up the JFrame
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,12 +132,12 @@ public class addContact extends JFrame {
     }
 
     private void Buttons() {
-        addButton = new RoundedBorder("Add");
+        addButton = new Button("Add");
         addButton.setIcon(Images.addIconImage());
         addButton.setBackground(Color.black);
         addButton.setForeground(Color.white);
 
-        clearButton = new RoundedBorder("Clear");
+        clearButton = new Button("Clear");
         clearButton.setIcon(Images.clearImageIcon());
         clearButton.setBackground(Color.black);
         clearButton.setForeground(Color.white);
