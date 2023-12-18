@@ -21,9 +21,6 @@ This is a Java project that uses JDBC to connect to a MySQL database. It provide
 ## Usage
 Run the `main` method in [`Project.java`](src/main/java/main/java/Project.java). This will launch a GUI where you can manage your contacts.
 
-## Animations
-Here's a glimpse of the animations in our application:
-![Animation GIF](link-to-your-gif)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
