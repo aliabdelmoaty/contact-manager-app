@@ -10,13 +10,15 @@ This is a Java project that uses JDBC to connect to a MySQL database. It provide
 - Read all contacts from the database
 - Update a contact's details
 - Delete a contact by ID
-- Animations for validating input fields
+- search a contact by id name email
+- change a shape button and textField
 
 ## Setup
 1. Clone the repository
 2. Ensure you have Java and Maven installed on your machine
-3. Update the `JDBC_URL`, `userName`, and `password` in [`SQLServer.java`](src/main/java/logic/SQLServer.java) to match your MySQL server details
-4. Run the project using your preferred IDE or from the command line with `mvn exec:java`
+3. download https://www.apachefriends.org/
+4. Update the `JDBC_URL`, `userName`, and `password` in [`SQLServer.java`](src/main/java/logic/SQLServer.java) to match your MySQL server details
+5. Run the project using your preferred IDE or from the command line with `mvn exec:java`
 
 ## Usage
 Run the `main` method in [`Project.java`](src/main/java/main/java/Project.java). This will launch a GUI where you can manage your contacts.
