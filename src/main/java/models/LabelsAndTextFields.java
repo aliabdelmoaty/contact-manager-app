@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import utils.*;
 
+// Custom JPanel for labels and text fields
 public class LabelsAndTextFields extends JPanel {
     private JLabel labelName;
     private JLabel labelEmail;
@@ -15,15 +16,16 @@ public class LabelsAndTextFields extends JPanel {
     private JTextField phoneField;
     private JTextField addressField;
 
+    // Constructor for LabelsAndTextFields
     public LabelsAndTextFields() {
         initializeComponents();
         this.setLayout(null);
         setBoundsComponents();
         addComponents();
         setVisible(true);
-
     }
 
+    // Initialize text fields and labels
     private void initializeComponents() {
         initializeLabels();
         nameField = new RoundJTextField(Hints.HINT_NAME, 30);
@@ -32,6 +34,7 @@ public class LabelsAndTextFields extends JPanel {
         addressField = new RoundJTextField(Hints.HINT_ADDRESS, 30);
     }
 
+    // Initialize label components
     private void initializeLabels() {
         labelName = new JLabel("Name");
         labelName.setFont(Constants.getFontForLabel());
@@ -43,6 +46,7 @@ public class LabelsAndTextFields extends JPanel {
         labelAddress.setFont(labelName.getFont());
     }
 
+    // Set the bounds for labels and text fields
     private void setBoundsComponents() {
         labelName.setBounds(10, 10, 100, 30);
         nameField.setBounds(10, 35, 190, 25);
@@ -54,6 +58,7 @@ public class LabelsAndTextFields extends JPanel {
         addressField.setBounds(10, 200, 190, 25);
     }
 
+    // Add labels and text fields to the panel
     private void addComponents() {
         this.add(labelName);
         this.add(nameField);
@@ -65,6 +70,7 @@ public class LabelsAndTextFields extends JPanel {
         this.add(addressField);
     }
 
+    // Getter methods for retrieving text from text fields
     public String getName() {
         return nameField.getText();
     }
@@ -81,6 +87,7 @@ public class LabelsAndTextFields extends JPanel {
         return addressField.getText();
     }
 
+    // Setter methods for setting text in text fields
     public void setName(String name) {
         nameField.setText(name);
     }

@@ -19,7 +19,10 @@ public class Button extends JButton {
 
     // Constructor taking the text
     public Button(String text) {
+        // Call the other constructor with default colors
         this(text, DEFAULT_BG_COLOR, DEFAULT_TEXT_COLOR);
+
+        // Add an ActionListener to handle button clicks
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,6 +30,7 @@ public class Button extends JButton {
                 isPressed = !isPressed;
                 repaint(); // Repaint the button to apply changes
 
+                // If the button is pressed, start a timer to reset the pressed state after a delay
                 if (isPressed) {
                     Timer timer = new Timer(80, new ActionListener() {
                         @Override
@@ -56,6 +60,7 @@ public class Button extends JButton {
     // To change the shape of the button
     @Override
     protected void paintComponent(Graphics g) {
+        // Create a Graphics2D object for more advanced graphics operations
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -69,18 +74,23 @@ public class Button extends JButton {
                     DEFAULT_RADIUS);
         }
 
+        // Create a rounded rectangle for the button shape
         RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(0, 0, width - 1, height - 1, DEFAULT_RADIUS,
                 DEFAULT_RADIUS);
 
+        // Fill the button background
         g2.setColor(getBackground());
         g2.fill(roundedRectangle);
 
+        // Draw inner shadow if the button is not pressed
         if (!isPressed) {
             g2.fillRoundRect(0, 0, width - SHADOW_SIZE, height - SHADOW_SIZE, DEFAULT_RADIUS, DEFAULT_RADIUS);
         }
 
+        // Set content area filled to false to allow custom painting
         setContentAreaFilled(false);
 
+        // Call the super class to paint the text and other components
         super.paintComponent(g);
     }
 

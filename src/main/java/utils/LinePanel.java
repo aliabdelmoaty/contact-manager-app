@@ -1,25 +1,22 @@
-
 package utils;
 
-import javax.swing.JPanel;
-
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class LinePanel extends JPanel {
-    public LinePanel() {
-        setLayout(null);
-        setBackground(Color.red);
-        setBounds(210, 0, 10, 600);
+// Custom Canvas representing a vertical line
+public class LinePanel extends Canvas {
 
-        setVisible(true);
-    }
-
+    // Override paint to draw the vertical line
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.black);
+    public void paint(Graphics g) {
+        // Set the background color of the canvas to black
+        setBackground(Color.black);
 
-        g.drawLine(10, 0, 10, 600);
+        // Set the foreground color (line color) to red
+        setForeground(Color.RED);
+
+        // Draw a vertical line from (250, 0) to (251, 600)
+        g.drawLine(250, 0, 251, 600);
     }
 }

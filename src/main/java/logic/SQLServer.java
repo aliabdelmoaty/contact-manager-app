@@ -8,13 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
-import com.mysql.cj.xdevapi.Result;
 
 import models.Table;
 import utils.Constants;
 import utils.HandleErrors;
 
+// Class for interacting with the SQL server and performing database operations
 public class SQLServer {
+    // JDBC connection URL for the MySQL database
     private static final String JDBC_URL = "jdbc:mysql://localhost/contacts";
     private static final String userName = "root";
     private static final String password = "";
@@ -22,24 +23,24 @@ public class SQLServer {
     private static Statement statement = null;
     private static PreparedStatement preparedStatement = null;
 
+    // Establishes a connection to the database
     public static void connectToDatabase() throws HandleErrors {
         try {
             connection = DriverManager.getConnection(JDBC_URL, userName, password);
         } catch (SQLException e) {
             System.out.println("Error connecting to database: " + e.getMessage());
             e.printStackTrace();
-            new HandleErrors(
+            throw new HandleErrors(
                     "Error connecting to the database. Please check your network connection or server status.");
-
         }
     }
 
+    // Creates the 'contacts' table in the database
     public static void createContactTable() throws HandleErrors {
         try {
             connectToDatabase();
             statement = connection.createStatement();
-            statement.execute(
-                    Constants.CREATE_CONTACT);
+            statement.execute(Constants.CREATE_CONTACT);
         } catch (SQLException e) {
             System.out.println("Error creating table: " + e.getMessage());
             e.printStackTrace();
@@ -49,14 +50,12 @@ public class SQLServer {
         }
     }
 
-    // Function to insert the name, email, phone, and address, while the id is
-    // automatically generated
+    // Inserts a new contact into the 'contacts' table
     public static void insertContact(String name, String email, int phone, String address) throws HandleErrors {
         try {
             connectToDatabase();
             if (connection != null) {
-                preparedStatement = connection.prepareStatement(
-                        Constants.INSERT_CONTACT);
+                preparedStatement = connection.prepareStatement(Constants.INSERT_CONTACT);
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, email);
                 preparedStatement.setInt(3, phone);
@@ -74,7 +73,7 @@ public class SQLServer {
         }
     }
 
-    // Function to delete a contact by id
+    // Deletes a contact from the 'contacts' table by id
     public static void deleteContact(int id) throws HandleErrors {
         try {
             connectToDatabase();
@@ -92,8 +91,7 @@ public class SQLServer {
         }
     }
 
-    // Function to get a contact
-    // Function to get a contact
+    // Retrieves all contacts from the 'contacts' table and populates the table model
     public static void getContact(Table table) throws HandleErrors {
         try {
             connectToDatabase();
@@ -115,14 +113,7 @@ public class SQLServer {
         }
     }
 
-    /**
-     * This method sorts the data in the table in ascending order (A-Z) by name.
-     * It first establishes a connection to the database, then prepares and executes
-     * a SQL query to fetch all contacts, ordered by name in ascending order.
-     * The data from the ResultSet is then added row by row to the table.
-     * If there is a SQL exception during this process, a HandleErrors exception is
-     * thrown with a message detailing the error.
-     */
+    // Sorts the data in the table in ascending order (A-Z) by name
     public static void sortAZ(Table table) throws HandleErrors {
         try {
             connectToDatabase();
@@ -141,18 +132,10 @@ public class SQLServer {
 
         } catch (SQLException e) {
             throw new HandleErrors("Error retrieving data: " + e.getMessage());
-
         }
     }
 
-    /**
-     * This method sorts the data in the table in descending order (Z-A) by name.
-     * It first establishes a connection to the database, then prepares and executes
-     * a SQL query to fetch all contacts, ordered by name in descending order.
-     * The data from the ResultSet is then added row by row to the table.
-     * If there is a SQL exception during this process, a HandleErrors exception is
-     * thrown with a message detailing the error.
-     */
+    // Sorts the data in the table in descending order (Z-A) by name
     public static void sortZA(Table table) throws HandleErrors {
         try {
             connectToDatabase();
@@ -170,10 +153,10 @@ public class SQLServer {
             }
         } catch (SQLException e) {
             throw new HandleErrors("Error retrieving data: " + e.getMessage());
-
         }
     }
 
+    // Searches contacts in the 'contacts' table by text and populates the table model
     public static void searchContactsByText(String txt, Table table) throws HandleErrors {
         try {
             connectToDatabase();
@@ -185,7 +168,6 @@ public class SQLServer {
             ResultSet resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
             int columnCount = resultSetMetaData.getColumnCount();
-            System.out.println(columnCount);
 
             table.clearTable();
             while (resultSet.next()) {
@@ -194,26 +176,24 @@ public class SQLServer {
                     data[i - 1] = resultSet.getString(i);
                 }
                 table.addRow(data);
-
             }
-           int rowCount= table.getRowCount();
-           if(rowCount<=0){
-            throw new HandleErrors("No record found");
-           }
+
+            int rowCount = table.getRowCount();
+            if (rowCount <= 0) {
+                throw new HandleErrors("No record found");
+            }
 
         } catch (SQLException e) {
             throw new HandleErrors("Error retrieving data: " + e.getMessage());
         }
-
     }
 
-    // Function to edit contact data by id
+    // Edits contact data in the 'contacts' table by id
     public static void editContact(int id, String newName, String newEmail, int newPhone, String newAddress)
             throws HandleErrors {
         try {
             connectToDatabase();
-            preparedStatement = connection.prepareStatement(
-                    Constants.EDIT_CONTACT);
+            preparedStatement = connection.prepareStatement(Constants.EDIT_CONTACT);
             preparedStatement.setString(1, newName);
             preparedStatement.setString(2, newEmail);
             preparedStatement.setInt(3, newPhone);
@@ -248,5 +228,4 @@ public class SQLServer {
             e.printStackTrace();
         }
     }
-
 }

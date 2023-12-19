@@ -15,11 +15,13 @@ import utils.Button;
 import utils.HandleErrors;
 import utils.Validation;
 
+// Custom JPanel for Edit and Delete buttons
 public class ButtonEdit extends JPanel {
     private JButton editButton;
-    private JButton DeleteButton;
+    private JButton deleteButton;
     public Table table;
 
+    // Constructor for ButtonEdit
     public ButtonEdit(Table table) {
         initializeButtons();
         setBoundsComponents();
@@ -28,36 +30,37 @@ public class ButtonEdit extends JPanel {
         this.table = table;
         this.setLayout(null);
         setVisible(true);
-
     }
 
+    // Set the bounds for the buttons
     private void setBoundsComponents() {
         editButton.setBounds(10, 10, 90, 30);
-        DeleteButton.setBounds(200, 10, 90, 30);
-
+        deleteButton.setBounds(200, 10, 90, 30);
     }
 
+    // Add buttons to the panel
     private void addComponents() {
-        add(DeleteButton);
+        add(deleteButton);
         add(editButton);
     }
 
+    // Initialize the Edit and Delete buttons
     private void initializeButtons() {
-
         editButton = new Button("Edit");
         editButton.setBackground(Color.black);
         editButton.setForeground(Color.white);
 
-        DeleteButton = new Button("Delete");
-        DeleteButton.setBackground(Color.black);
-        DeleteButton.setForeground(Color.white);
-
+        deleteButton = new Button("Delete");
+        deleteButton.setBackground(Color.black);
+        deleteButton.setForeground(Color.white);
     }
 
+    // Set action listeners for Edit and Delete buttons
     private void actionButtons() {
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Get selected row data from the table
                 int selectedRow = table.getSelectedRow();
                 int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
                 String name = table.getValueAt(selectedRow, 1).toString();
@@ -65,17 +68,18 @@ public class ButtonEdit extends JPanel {
                 String phoneString = table.getValueAt(selectedRow, 3).toString();
                 int phone = Integer.parseInt(phoneString);
                 String address = table.getValueAt(selectedRow, 4).toString();
-                System.out.println(id + name + email + phone + address);
-                System.out.println(phoneString);
-                if (Validation.validationName(name) == true) {
-                    if (Validation.validationEmail(email) == true) {
-                        if (Validation.validationPhone(phoneString) == true) {
-                            if (Validation.validationAddress(address) == true) {
+
+                // Validate user input
+                if (Validation.validationName(name)) {
+                    if (Validation.validationEmail(email)) {
+                        if (Validation.validationPhone(phoneString)) {
+                            if (Validation.validationAddress(address)) {
                                 try {
+                                    // Ask for confirmation before editing
                                     int option = JOptionPane.showConfirmDialog(getRootPane(),
-                                            "Do you want to Edit this contact ",
-                                            "Edit", JOptionPane.YES_NO_OPTION);
+                                            "Do you want to Edit this contact ", "Edit", JOptionPane.YES_NO_OPTION);
                                     if (option == JOptionPane.YES_OPTION) {
+                                        // Edit the contact in the database
                                         SQLServer.editContact(id, name, email, phone, address);
                                         JOptionPane.showMessageDialog(null, "Contact edited successfully");
                                     }
@@ -84,7 +88,6 @@ public class ButtonEdit extends JPanel {
                                     JOptionPane.showMessageDialog(null, e);
                                 }
                             }
-
                         } else {
                             JOptionPane.showMessageDialog(getRootPane(), "Enter a valid phone");
                         }
@@ -94,21 +97,22 @@ public class ButtonEdit extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(getRootPane(), "Enter a valid name");
                 }
-
             }
-
         });
-        DeleteButton.addActionListener(new ActionListener() {
 
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Get selected row data from the table
                 int selectedRow = table.getSelectedRow();
                 int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
 
                 try {
-                    int option = JOptionPane.showConfirmDialog(getRootPane(), "Do you want to delete this contact ",
-                            "delete", JOptionPane.YES_NO_OPTION);
+                    // Ask for confirmation before deleting
+                    int option = JOptionPane.showConfirmDialog(getRootPane(),
+                            "Do you want to delete this contact ", "delete", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
+                        // Delete the contact from the database and update the table
                         SQLServer.deleteContact(id);
                         table.deleteContact(selectedRow);
                         JOptionPane.showMessageDialog(null, "Contact deleted successfully");
@@ -117,9 +121,7 @@ public class ButtonEdit extends JPanel {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, e1);
                 }
-
             }
-
         });
     }
 }
