@@ -45,7 +45,7 @@ abstract public class Validation {
             return false;
         } else {
             // Validate search (at least 2 characters, allows letters and spaces)
-            return search.length() >= 2 && search.matches("^[a-zA-Z0-9\\s]+$");
+            return search.length() >= 1 && search.matches("^[a-zA-Z0-9\\s]+$");
         }
     }
 

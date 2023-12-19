@@ -1,6 +1,7 @@
 package logic;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,7 +73,20 @@ public class SQLServer {
             closeResources();
         }
     }
+    
+    public static boolean doesTableExist(String tableName) throws HandleErrors {
+        try {
+            connectToDatabase();
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet tables = metaData.getTables(null, null, tableName, null);
 
+            return tables.next(); // If next() returns true, the table exists; otherwise, it doesn't
+        } catch (Exception e) {
+            throw new HandleErrors("Error checking if the table exists: " + e.getMessage());
+        } finally {
+            closeResources();
+        }
+    }
     // Deletes a contact from the 'contacts' table by id
     public static void deleteContact(int id) throws HandleErrors {
         try {

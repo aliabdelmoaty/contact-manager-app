@@ -60,8 +60,13 @@ public class Project extends JFrame {
         loadingDialog.setVisible(true);
 
         try {
-            // Attempt to get contact data from the SQL server and populate the table
+            if(SQLServer.doesTableExist("contacts")==true){
+                // Attempt to get contact data from the SQL server and populate the table
             SQLServer.getContact(table);
+            }else{
+                SQLServer.createContactTable();
+            }
+            
 
             // Create a new instance of the Project class, passing in the necessary
             // components
