@@ -32,8 +32,8 @@ public class ButtonEdit extends JPanel {
     }
 
     private void setBoundsComponents() {
-        editButton.setBounds(250, 510, 90, 30);
-        DeleteButton.setBounds(500, 510, 90, 30);
+        editButton.setBounds(10, 10, 90, 30);
+        DeleteButton.setBounds(200, 10, 90, 30);
 
     }
 

@@ -24,7 +24,7 @@ public class RoundJTextField extends JTextField {
         setForeground(Color.GRAY);
 
         // Set the font to Arial, bold, with size 12
-        setFont(Constants.fontTextFiled());
+        setFont(Constants.getFontForTextField());
 
         // Add a focus listener to handle focus gained and lost events
         addFocusListener(new FocusListener() {

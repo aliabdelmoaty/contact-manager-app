@@ -43,11 +43,9 @@ public class ButtonsAdd extends JPanel {
 
     private void initializeButtons() {
         addButton = new Button("Add");
-        addButton.setIcon(Constants.addIconImage());
         addButton.setBackground(Color.black);
         addButton.setForeground(Color.white);
         clearButton = new Button("Clear");
-        clearButton.setIcon(Constants.clearImageIcon());
         clearButton.setBackground(Color.black);
         clearButton.setForeground(Color.white);
     }

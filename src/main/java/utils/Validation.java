@@ -6,15 +6,16 @@ import java.util.regex.Pattern;
 abstract public class Validation {
 
     public static boolean validationName(String name) {
-        if(name.equals(Hints.HINT_NAME)){
+        if (name.equals(Hints.HINT_NAME)) {
             return false;
         }
         // Validate name (at least 2 characters)
         return name.length() >= 2 && name.matches("[a-zA-Z]+[a-zA-Z ]*");
 
     }
-        public static boolean validationAddress(String address) {
-            if(address.equals(Hints.HINT_ADDRESS)){
+
+    public static boolean validationAddress(String address) {
+        if (address.equals(Hints.HINT_ADDRESS)) {
             return false;
         }
         // Validate Address (at least 2 characters)
@@ -22,8 +23,17 @@ abstract public class Validation {
 
     }
 
+    public static boolean validationSearch(String search) {
+        if (search == null || search.isEmpty() || search.equals(Hints.HINT_EMAIL)) {
+            return false;
+        } else {
+            return search.length() >=2 && search.matches("^[a-zA-Z0-9\\s]+$");
+        }
+    }
+
+
     public static boolean validationEmail(String email) {
-        if(email.equals(Hints.HINT_EMAIL)){
+        if (email.equals(Hints.HINT_EMAIL)) {
             return false;
         }
         // Validate email format
@@ -34,11 +44,11 @@ abstract public class Validation {
     }
 
     public static boolean validationPhone(String phone) {
-        if(phone.equals(Hints.HINT_PHONE)){
+        if (phone.equals(Hints.HINT_PHONE)) {
             return false;
         }
         // Validate phone (11 digits starting with "01" for Egypt)
-         return phone.matches("[01][1250][0-9]{7,9}");
+        return phone.matches("[01][1250][0-9]{7,9}");
 
     }
 }

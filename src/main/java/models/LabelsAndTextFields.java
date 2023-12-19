@@ -20,8 +20,6 @@ public class LabelsAndTextFields extends JPanel {
         this.setLayout(null);
         setBoundsComponents();
         addComponents();
-        // setBackground(Color.blue);
-        // setSize(300, 300);
         setVisible(true);
 
     }
@@ -36,7 +34,7 @@ public class LabelsAndTextFields extends JPanel {
 
     private void initializeLabels() {
         labelName = new JLabel("Name");
-        labelName.setFont(Constants.fontLabel());
+        labelName.setFont(Constants.getFontForLabel());
         labelEmail = new JLabel("Email");
         labelEmail.setFont(labelName.getFont());
         labelPhone = new JLabel("Phone");

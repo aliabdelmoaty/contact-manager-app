@@ -8,13 +8,14 @@ import javax.swing.JPanel;
 import logic.SQLServer;
 import models.LabelsAndTextFields;
 import models.Table;
+import models.buttons.SearchButton;
 import models.buttons.ButtonEdit;
 import models.buttons.ButtonsAdd;
 
 public class Project extends JFrame {
-    private ButtonEdit buttonEdit;
 
-    public Project(LabelsAndTextFields labelsAndTextFields, ButtonsAdd buttonsAdd, Table table,ButtonEdit buttonEdit) {
+    public Project(LabelsAndTextFields labelsAndTextFields, ButtonsAdd buttonsAdd, Table table,
+            ButtonEdit buttonEdit, SearchButton searchButton) {
 
         setTitle("Project");
         setSize(850, 600);
@@ -23,13 +24,16 @@ public class Project extends JFrame {
         labelsAndTextFields.setBounds(0, 0, 210, 240);
         buttonsAdd.setBounds(0, 0, 210, 280);
 
-        table.setBounds(230, 100, 600, 500);
-        buttonEdit.setBounds(300, 600, 300, 200);
+        table.setBounds(230, 80, 600, 500);
+        buttonEdit.setBounds(300, 500, 300, 200);
+        searchButton.setBounds(300, 100, 300, 100);
 
         this.add(labelsAndTextFields);
         this.add(buttonsAdd);
-        this.add(table);
         this.add(buttonEdit);
+
+        this.add(table);
+        this.add(searchButton);
 
         setVisible(true);
     }
@@ -38,14 +42,15 @@ public class Project extends JFrame {
         Table table = new Table();
         LabelsAndTextFields labelsAndTextFields = new LabelsAndTextFields();
         ButtonsAdd buttons = new ButtonsAdd(labelsAndTextFields, table);
-        ButtonEdit buttonEdit =new ButtonEdit(table);
+        ButtonEdit buttonEdit = new ButtonEdit(table);
+        SearchButton searchButton = new SearchButton(table);
         // Show loading dialog
         LoadingDialog loadingDialog = new LoadingDialog();
         loadingDialog.setVisible(true);
 
         try {
             SQLServer.getContact(table);
-            new Project(labelsAndTextFields, buttons, table, buttonEdit);
+            new Project(labelsAndTextFields, buttons, table, buttonEdit, searchButton);
         } catch (Exception e) {
             // e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error getting contacts. Please check your server.", "Error!",

@@ -27,14 +27,16 @@ public class Table extends JPanel {
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
         JTableHeader header = table.getTableHeader();
-        header.setFont(Constants.fontTable());
+        header.setFont(Constants.getFontForTable());
         scrollPane = new JScrollPane(table);
         scrollPane.setBounds(0, 0, 600, 400);
         add(scrollPane);
 
         addTableSelectionListener();
     }
-
+    public int getRowCount(){
+        return tableModel.getRowCount();
+    }
     public void addRow(String[] rowData) {
         ((DefaultTableModel) table.getModel()).addRow(rowData);
     }
@@ -47,12 +49,15 @@ public class Table extends JPanel {
     public int getSelectedRow() {
         return table.getSelectedRow();
     }
-    public void deleteContact(int selectedRow){
+
+    public void deleteContact(int selectedRow) {
         ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
     }
+
     public Object getValueAt(int row, int column) {
         return table.getValueAt(row, column);
     }
+
     private void addTableSelectionListener() {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -60,7 +65,7 @@ public class Table extends JPanel {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    
+
                 }
             }
         });

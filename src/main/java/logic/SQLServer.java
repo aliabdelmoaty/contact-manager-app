@@ -8,8 +8,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import com.mysql.cj.xdevapi.Result;
 
 import models.Table;
+import utils.Constants;
 import utils.HandleErrors;
 
 public class SQLServer {
@@ -37,7 +39,7 @@ public class SQLServer {
             connectToDatabase();
             statement = connection.createStatement();
             statement.execute(
-                    "CREATE TABLE IF NOT EXISTS contacts (id INT AUTO_INCREMENT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, phone INTEGER NOT NULL, address TEXT NOT NULL, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+                    Constants.CREATE_CONTACT);
         } catch (SQLException e) {
             System.out.println("Error creating table: " + e.getMessage());
             e.printStackTrace();
@@ -54,7 +56,7 @@ public class SQLServer {
             connectToDatabase();
             if (connection != null) {
                 preparedStatement = connection.prepareStatement(
-                        "INSERT INTO contacts(name, email, phone, address) VALUES (?, ?, ?, ?)");
+                        Constants.INSERT_CONTACT);
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, email);
                 preparedStatement.setInt(3, phone);
@@ -76,7 +78,7 @@ public class SQLServer {
     public static void deleteContact(int id) throws HandleErrors {
         try {
             connectToDatabase();
-            preparedStatement = connection.prepareStatement("DELETE FROM contacts WHERE id = ?");
+            preparedStatement = connection.prepareStatement(Constants.DELETE_CONTACT);
             preparedStatement.setInt(1, id);
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -89,29 +91,121 @@ public class SQLServer {
             closeResources();
         }
     }
-        // Function to get a contact 
-        // Function to get a contact
-        public static void getContact(Table table) throws HandleErrors {
-            try {
-                connectToDatabase();
-                preparedStatement = connection.prepareStatement("SELECT * FROM contacts");
-                ResultSet resultSet = preparedStatement.executeQuery();
-                ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
-                int columnCount = resultSetMetaData.getColumnCount();
-                
-                while (resultSet.next()) {
-                    String[] data = new String[columnCount];
-                    for (int i = 1; i <= columnCount; i++) {
-                        data[i - 1] = resultSet.getString(i);
-                    }
-                    table.addRow(data);
+
+    // Function to get a contact
+    // Function to get a contact
+    public static void getContact(Table table) throws HandleErrors {
+        try {
+            connectToDatabase();
+            preparedStatement = connection.prepareStatement(Constants.GET_CONTACT);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            while (resultSet.next()) {
+                String[] data = new String[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    data[i - 1] = resultSet.getString(i);
                 }
-            } catch (SQLException e) {
-                throw new HandleErrors("Error retrieving data: " + e.getMessage());
-            } finally {
-                closeResources();
+                table.addRow(data);
             }
+        } catch (SQLException e) {
+            throw new HandleErrors("Error retrieving data: " + e.getMessage());
+        } finally {
+            closeResources();
         }
+    }
+
+    /**
+     * This method sorts the data in the table in ascending order (A-Z) by name.
+     * It first establishes a connection to the database, then prepares and executes
+     * a SQL query to fetch all contacts, ordered by name in ascending order.
+     * The data from the ResultSet is then added row by row to the table.
+     * If there is a SQL exception during this process, a HandleErrors exception is
+     * thrown with a message detailing the error.
+     */
+    public static void sortAZ(Table table) throws HandleErrors {
+        try {
+            connectToDatabase();
+            preparedStatement = connection.prepareStatement(Constants.SORT_AZ);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            table.clearTable();
+            while (resultSet.next()) {
+                String[] data = new String[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    data[i - 1] = resultSet.getString(i);
+                }
+                table.addRow(data);
+            }
+
+        } catch (SQLException e) {
+            throw new HandleErrors("Error retrieving data: " + e.getMessage());
+
+        }
+    }
+
+    /**
+     * This method sorts the data in the table in descending order (Z-A) by name.
+     * It first establishes a connection to the database, then prepares and executes
+     * a SQL query to fetch all contacts, ordered by name in descending order.
+     * The data from the ResultSet is then added row by row to the table.
+     * If there is a SQL exception during this process, a HandleErrors exception is
+     * thrown with a message detailing the error.
+     */
+    public static void sortZA(Table table) throws HandleErrors {
+        try {
+            connectToDatabase();
+            preparedStatement = connection.prepareStatement(Constants.SORT_ZA);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            table.clearTable();
+            while (resultSet.next()) {
+                String[] data = new String[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    data[i - 1] = resultSet.getString(i);
+                }
+                table.addRow(data);
+            }
+        } catch (SQLException e) {
+            throw new HandleErrors("Error retrieving data: " + e.getMessage());
+
+        }
+    }
+
+    public static void searchContactsByText(String txt, Table table) throws HandleErrors {
+        try {
+            connectToDatabase();
+            String searchText = "%" + txt + "%";
+            preparedStatement = connection.prepareStatement(Constants.SEARCH_TEXT);
+            preparedStatement.setString(1, searchText);
+            preparedStatement.setString(2, searchText);
+            preparedStatement.setString(3, searchText);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData resultSetMetaData = (ResultSetMetaData) resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            System.out.println(columnCount);
+
+            table.clearTable();
+            while (resultSet.next()) {
+                String[] data = new String[columnCount];
+                for (int i = 1; i <= columnCount; i++) {
+                    data[i - 1] = resultSet.getString(i);
+                }
+                table.addRow(data);
+
+            }
+           int rowCount= table.getRowCount();
+           if(rowCount<=0){
+            throw new HandleErrors("No record found");
+           }
+
+        } catch (SQLException e) {
+            throw new HandleErrors("Error retrieving data: " + e.getMessage());
+        }
+
+    }
 
     // Function to edit contact data by id
     public static void editContact(int id, String newName, String newEmail, int newPhone, String newAddress)
@@ -119,7 +213,7 @@ public class SQLServer {
         try {
             connectToDatabase();
             preparedStatement = connection.prepareStatement(
-                    "UPDATE contacts SET  name = ?, email = ?, phone = ?, address = ? WHERE id = ?");
+                    Constants.EDIT_CONTACT);
             preparedStatement.setString(1, newName);
             preparedStatement.setString(2, newEmail);
             preparedStatement.setInt(3, newPhone);
@@ -154,6 +248,5 @@ public class SQLServer {
             e.printStackTrace();
         }
     }
-
 
 }
