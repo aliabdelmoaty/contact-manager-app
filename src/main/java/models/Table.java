@@ -4,11 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import utils.Constants;
@@ -34,9 +34,8 @@ public class Table extends JPanel {
         header.setFont(Constants.getFontForTable());
         scrollPane = new JScrollPane(table);
         scrollPane.setBounds(0, 0, 650, 400);
-        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tableModel);
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
         table.setRowSorter(sorter);
-
         add(scrollPane);
 
         addTableSelectionListener();
@@ -86,12 +85,22 @@ public class Table extends JPanel {
             }
         });
     }
-
+    public void searchContactsByText(String searchText) {
+        TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
+        
+        if (searchText.trim().length() == 0) {
+            // If search text is empty, reset the row filter
+            sorter.setRowFilter(null);
+        } else {
+            // Apply row filter with case-insensitive regex matching
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
+        }
+    }
     // Set preferred column widths for better table layout
     private void setColumnWidths() {
         table.getColumnModel().getColumn(0).setPreferredWidth(40);
         table.getColumnModel().getColumn(1).setPreferredWidth(170);
-        table.getColumnModel().getColumn(2).setPreferredWidth(170);
+        table.getColumnModel().getColumn(2).setPreferredWidth(180);
         table.getColumnModel().getColumn(3).setPreferredWidth(100);
         table.getColumnModel().getColumn(4).setPreferredWidth(100);
         table.getColumnModel().getColumn(5).setPreferredWidth(120);

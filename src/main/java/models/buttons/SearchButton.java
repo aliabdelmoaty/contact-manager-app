@@ -84,11 +84,13 @@ public class SearchButton extends JPanel {
                 String text = textField.getText();
                 if (Validation.validationSearch(textField.getText())) {
                     try {
+
                         SQLServer.searchContactsByText(text, table); // Search contacts in the database
                         textField.setText(Hints.HINT_SEARCH);
                     } catch (HandleErrors e1) {
                         // Handle errors that may occur during the search
                         handleSearchError(e1);
+                        textField.setText(Hints.HINT_SEARCH);
                     }
                 } else {
                     // Show error message if the search input is invalid
@@ -118,6 +120,7 @@ public class SearchButton extends JPanel {
                 }
             }
         });
+
     }
 
     // Handle errors that may occur during the search operation
