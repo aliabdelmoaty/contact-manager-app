@@ -17,10 +17,14 @@ This is a Java project that uses JDBC to connect to a MySQL database. It provide
 1. Clone the repository
 2. Ensure you have Java and Maven installed on your machine
 3. download https://www.apachefriends.org/
-4. ![alt text](https://github.com/[aliabdelmoaty]/[reponame]/blob/[main]/XAMPP.png?raw=true)
+4. ![XAMPP Logo](https://github.com/aliabdelmoaty/contact-manager-app/raw/main/src/main/resources/icons/XAMPP.png)
 
 5. Update the `JDBC_URL`, `userName`, and `password` in [`SQLServer.java`](src/main/java/logic/SQLServer.java) to match your MySQL server details
 6. Run the project using your preferred IDE or from the command line with `mvn exec:java`
+
+
+## Design 
+4. ![App Design](https://github.com/aliabdelmoaty/contact-manager-app/raw/main/src/main/resources/icons/project.png)
 
 ## Usage
 Run the `main` method in [`Project.java`](src/main/java/main/java/Project.java). This will launch a GUI where you can manage your contacts.
