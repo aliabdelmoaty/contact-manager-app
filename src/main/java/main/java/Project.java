@@ -28,7 +28,7 @@ public class Project extends JFrame {
         labelsAndTextFields.setBounds(0, 0, 210, 240); // Set bounds for LabelsAndTextFields panel
         buttonsAdd.setBounds(0, 0, 210, 280); // Set bounds for ButtonsAdd panel
         linePanel.setBounds(215, 0, 2, 600);
-        table.setBounds(230, 80, 700, 500); // Set bounds for Table panel
+        table.setBounds(230, 80, 700, 400); // Set bounds for Table panel
         buttonEdit.setBounds(300, 500, 300, 200); // Set bounds for ButtonEdit panel
         searchButton.setBounds(230, 10, 600, 50); // Set bounds for SearchButton panel
 
@@ -38,8 +38,8 @@ public class Project extends JFrame {
         this.add(buttonsAdd);
         this.add(searchButton);
 
-        this.add(buttonEdit);
         this.add(table);
+        this.add(buttonEdit);
 
         setVisible(true); // Set the JFrame as visible
     }

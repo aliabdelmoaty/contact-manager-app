@@ -98,8 +98,8 @@ public abstract class Constants {
     public static final String INSERT_CONTACT = "INSERT INTO contacts(name, email, phone, address) VALUES (?, ?, ?, ?)";
     public static final String DELETE_CONTACT = "DELETE FROM contacts WHERE id = ?";
     public static final String GET_CONTACT = "SELECT * FROM contacts";
-    public static final String SORT_AZ = "SELECT * FROM contacts ORDER BY name DESC";
-    public static final String SORT_ZA = "SELECT * FROM contacts ORDER BY name ASC";
+    public static final String SORT_AZ = "SELECT * FROM contacts ORDER BY name ASC";
+    public static final String SORT_ZA = "SELECT * FROM contacts ORDER BY name DESC";
     public static final String SEARCH_TEXT = "SELECT * FROM contacts WHERE id LIKE ? OR name LIKE ? OR email LIKE ?";
     public static final String EDIT_CONTACT = "UPDATE contacts SET name = ?, email = ?, phone = ?, address = ? WHERE id = ?";
 }

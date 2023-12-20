@@ -61,42 +61,48 @@ public class ButtonEdit extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Get selected row data from the table
+                // if()
                 int selectedRow = table.getSelectedRow();
-                int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
-                String name = table.getValueAt(selectedRow, 1).toString();
-                String email = table.getValueAt(selectedRow, 2).toString();
-                String phoneString = table.getValueAt(selectedRow, 3).toString();
-                int phone = Integer.parseInt(phoneString);
-                String address = table.getValueAt(selectedRow, 4).toString();
+                if (selectedRow >= 0) {
+                    int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+                    String name = table.getValueAt(selectedRow, 1).toString();
+                    String email = table.getValueAt(selectedRow, 2).toString();
+                    String phoneString = table.getValueAt(selectedRow, 3).toString();
+                    int phone = Integer.parseInt(phoneString);
+                    String address = table.getValueAt(selectedRow, 4).toString();
 
-                // Validate user input
-                if (Validation.validationName(name)) {
-                    if (Validation.validationEmail(email)) {
-                        if (Validation.validationPhone(phoneString)) {
-                            if (Validation.validationAddress(address)) {
-                                try {
-                                    // Ask for confirmation before editing
-                                    int option = JOptionPane.showConfirmDialog(getRootPane(),
-                                            "Do you want to Edit this contact ", "Edit", JOptionPane.YES_NO_OPTION);
-                                    if (option == JOptionPane.YES_OPTION) {
-                                        // Edit the contact in the database
-                                        SQLServer.editContact(id, name, email, phone, address);
-                                        JOptionPane.showMessageDialog(null, "Contact edited successfully");
+                    // Validate user input
+                    if (Validation.validationName(name)) {
+                        if (Validation.validationEmail(email)) {
+                            if (Validation.validationPhone(phoneString)) {
+                                if (Validation.validationAddress(address)) {
+                                    try {
+                                        // Ask for confirmation before editing
+                                        int option = JOptionPane.showConfirmDialog(getRootPane(),
+                                                "Do you want to Edit this contact ", "Edit", JOptionPane.YES_NO_OPTION);
+                                        if (option == JOptionPane.YES_OPTION) {
+                                            // Edit the contact in the database
+                                            SQLServer.editContact(id, name, email, phone, address);
+                                            JOptionPane.showMessageDialog(null, "Contact edited successfully");
+                                        }
+                                    } catch (HandleErrors e1) {
+                                        e1.printStackTrace();
+                                        JOptionPane.showMessageDialog(null, e);
                                     }
-                                } catch (HandleErrors e1) {
-                                    e1.printStackTrace();
-                                    JOptionPane.showMessageDialog(null, e);
                                 }
+                            } else {
+                                JOptionPane.showMessageDialog(getRootPane(), "Enter a valid phone");
                             }
                         } else {
-                            JOptionPane.showMessageDialog(getRootPane(), "Enter a valid phone");
+                            JOptionPane.showMessageDialog(getRootPane(), "Enter a valid email");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(getRootPane(), "Enter a valid email");
+                        JOptionPane.showMessageDialog(getRootPane(), "Enter a valid name");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(getRootPane(), "Enter a valid name");
+                    JOptionPane.showMessageDialog(getRootPane(), "Please select a row");
                 }
+
             }
         });
 
@@ -105,22 +111,27 @@ public class ButtonEdit extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Get selected row data from the table
                 int selectedRow = table.getSelectedRow();
-                int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+                if (selectedRow >= 0) {
+                    int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
 
-                try {
-                    // Ask for confirmation before deleting
-                    int option = JOptionPane.showConfirmDialog(getRootPane(),
-                            "Do you want to delete this contact ", "delete", JOptionPane.YES_NO_OPTION);
-                    if (option == JOptionPane.YES_OPTION) {
-                        // Delete the contact from the database and update the table
-                        SQLServer.deleteContact(id);
-                        table.deleteContact(selectedRow);
-                        JOptionPane.showMessageDialog(null, "Contact deleted successfully");
+                    try {
+                        // Ask for confirmation before deleting
+                        int option = JOptionPane.showConfirmDialog(getRootPane(),
+                                "Do you want to delete this contact ", "delete", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION) {
+                            // Delete the contact from the database and update the table
+                            SQLServer.deleteContact(id);
+                            table.deleteContact(selectedRow);
+                            JOptionPane.showMessageDialog(null, "Contact deleted successfully");
+                        }
+                    } catch (HandleErrors e1) {
+                        e1.printStackTrace();
+                        JOptionPane.showMessageDialog(null, e1);
                     }
-                } catch (HandleErrors e1) {
-                    e1.printStackTrace();
-                    JOptionPane.showMessageDialog(null, e1);
+                }else{
+                    JOptionPane.showMessageDialog(getRootPane(), "Please select a row");
                 }
+
             }
         });
     }
