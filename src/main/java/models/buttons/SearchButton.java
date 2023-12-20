@@ -23,6 +23,7 @@ import utils.Validation;
 
 public class SearchButton extends JPanel {
     private JButton search;
+    private JButton clearSearch;
     private JComboBox<String> sort;
     public Table table; // Reference to the table where search results will be displayed
     private JLabel label;
@@ -46,6 +47,7 @@ public class SearchButton extends JPanel {
         sort.setBounds(80, 20, 90, 30);
         textField.setBounds(200, 20, 220, 30);
         search.setBounds(430, 20, 90, 30);
+        clearSearch.setBounds(530, 20, 110, 30);
     }
 
     // Add UI components to the panel
@@ -54,6 +56,7 @@ public class SearchButton extends JPanel {
         add(label);
         add(search);
         add(textField);
+        add(clearSearch);
     }
 
     // Initialize UI components (buttons, labels, text fields)
@@ -63,6 +66,9 @@ public class SearchButton extends JPanel {
         search = new Button("Search");
         search.setBackground(Color.black);
         search.setForeground(Color.white);
+        clearSearch = new Button("Clear search");
+        clearSearch.setBackground(Color.black);
+        clearSearch.setForeground(Color.white);
         String country[] = { "A-Z", "Z-A" };
         sort = new JComboBox<String>(country);
         label = new JLabel("Sort");
@@ -96,6 +102,20 @@ public class SearchButton extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 // Handle sorting selection when the selection in the combo box changes
                 handleSortSelection();
+            }
+        });
+        clearSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Clear the search results when the "Clear search" button is clicked
+                try {
+                    table.clearTable();
+                    SQLServer.getContact(table); // Get all contacts from the database
+                } catch (HandleErrors e1) {
+                    // Handle errors that may occur during the search
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(getRootPane(), e1.getMessage());
+                }
             }
         });
     }

@@ -30,7 +30,7 @@ public class Project extends JFrame {
         linePanel.setBounds(215, 0, 2, 600);
         table.setBounds(230, 80, 700, 400); // Set bounds for Table panel
         buttonEdit.setBounds(300, 500, 300, 200); // Set bounds for ButtonEdit panel
-        searchButton.setBounds(230, 10, 600, 50); // Set bounds for SearchButton panel
+        searchButton.setBounds(230, 10, 650, 50); // Set bounds for SearchButton panel
 
         // Add components to the JFrame
         this.add(linePanel);
@@ -60,13 +60,12 @@ public class Project extends JFrame {
         loadingDialog.setVisible(true);
 
         try {
-            if(SQLServer.doesTableExist("contacts")==true){
+            if (SQLServer.doesTableExist("contacts") == true) {
                 // Attempt to get contact data from the SQL server and populate the table
-            SQLServer.getContact(table);
-            }else{
+                SQLServer.getContact(table);
+            } else {
                 SQLServer.createContactTable();
             }
-            
 
             // Create a new instance of the Project class, passing in the necessary
             // components
