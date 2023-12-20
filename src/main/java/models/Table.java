@@ -1,6 +1,5 @@
 package models;
 
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -9,6 +8,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import utils.Constants;
 
@@ -33,6 +34,9 @@ public class Table extends JPanel {
         header.setFont(Constants.getFontForTable());
         scrollPane = new JScrollPane(table);
         scrollPane.setBounds(0, 0, 650, 400);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(tableModel);
+        table.setRowSorter(sorter);
+
         add(scrollPane);
 
         addTableSelectionListener();
@@ -85,7 +89,7 @@ public class Table extends JPanel {
 
     // Set preferred column widths for better table layout
     private void setColumnWidths() {
-        table.getColumnModel().getColumn(0).setPreferredWidth(30);
+        table.getColumnModel().getColumn(0).setPreferredWidth(40);
         table.getColumnModel().getColumn(1).setPreferredWidth(170);
         table.getColumnModel().getColumn(2).setPreferredWidth(170);
         table.getColumnModel().getColumn(3).setPreferredWidth(100);
