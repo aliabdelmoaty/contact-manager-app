@@ -35,10 +35,10 @@ public abstract class Constants {
      *
      * @return ImageIcon for 'Edit' action
      */
-    public static ImageIcon editIconImage() {
+    public static ImageIcon linkedinIconImage() {
         // Load and scale the 'Edit' icon image
-        ImageIcon icon = new ImageIcon("src\\main\\resources\\icons\\edit.png");
-        Image image = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon("src\\main\\resources\\icons\\linkedin.png");
+        Image image = icon.getImage().getScaledInstance(23, 23, Image.SCALE_SMOOTH);
         return new ImageIcon(image);
     }
 
@@ -47,10 +47,10 @@ public abstract class Constants {
      *
      * @return ImageIcon for 'Save' action
      */
-    public static ImageIcon saveIconImage() {
+    public static ImageIcon githubIconImage() {
         // Load and scale the 'Save' icon image
-        ImageIcon icon = new ImageIcon("src\\main\\resources\\icons\\save.png");
-        Image image = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        ImageIcon icon = new ImageIcon("src\\main\\resources\\icons\\github.png");
+        Image image = icon.getImage().getScaledInstance(23, 23, Image.SCALE_SMOOTH);
         return new ImageIcon(image);
     }
 

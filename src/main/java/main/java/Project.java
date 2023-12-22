@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import logic.SQLServer;
 import models.LabelsAndTextFields;
+import models.ModeBy;
 import models.Table;
 import models.buttons.SearchButton;
 import utils.LinePanel;
@@ -19,6 +20,7 @@ public class Project extends JFrame {
     public Project(LabelsAndTextFields labelsAndTextFields, ButtonsAdd buttonsAdd, Table table,
             ButtonEdit buttonEdit, SearchButton searchButton) {
         LinePanel linePanel = new LinePanel();
+        ModeBy modeBy =new ModeBy();
         setTitle("Project"); // Set the title of the JFrame
         setSize(900, 600); // Set the size of the JFrame
         setLocationRelativeTo(null); // Center the JFrame on the screen
@@ -27,6 +29,7 @@ public class Project extends JFrame {
         setResizable(false);
         labelsAndTextFields.setBounds(0, 0, 210, 240); // Set bounds for LabelsAndTextFields panel
         buttonsAdd.setBounds(0, 0, 210, 280); // Set bounds for ButtonsAdd panel
+        modeBy.setBounds(0, 300, 210, 300);
         linePanel.setBounds(215, 0, 2, 600);
         table.setBounds(230, 80, 700, 400); // Set bounds for Table panel
         buttonEdit.setBounds(300, 500, 300, 200); // Set bounds for ButtonEdit panel
@@ -36,6 +39,7 @@ public class Project extends JFrame {
         this.add(linePanel);
         this.add(labelsAndTextFields);
         this.add(buttonsAdd);
+        this.add(modeBy);
         this.add(searchButton);
 
         this.add(table);

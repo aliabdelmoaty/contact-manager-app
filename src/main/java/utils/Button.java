@@ -16,7 +16,7 @@ public class Button extends JButton {
 
     // Flag to track whether the button is pressed or not
     private boolean isPressed = false;
-
+    public Button(){}
     // Constructor taking the text
     public Button(String text) {
         // Call the other constructor with default colors

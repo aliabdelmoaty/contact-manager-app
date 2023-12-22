@@ -39,11 +39,11 @@ public class LabelsAndTextFields extends JPanel {
         labelName = new JLabel("Name");
         labelName.setFont(Constants.getFontForLabel());
         labelEmail = new JLabel("Email");
-        labelEmail.setFont(labelName.getFont());
+        labelEmail.setFont(Constants.getFontForLabel());
         labelPhone = new JLabel("Phone");
-        labelPhone.setFont(labelName.getFont());
+        labelPhone.setFont(Constants.getFontForLabel());
         labelAddress = new JLabel("Address");
-        labelAddress.setFont(labelName.getFont());
+        labelAddress.setFont(Constants.getFontForLabel());
     }
 
     // Set the bounds for labels and text fields
