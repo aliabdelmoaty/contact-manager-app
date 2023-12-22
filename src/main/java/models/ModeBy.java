@@ -64,7 +64,7 @@ public class ModeBy extends JPanel {
         linkedIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openWebLink("www.linkedin.com/in/ali-abdelmoaty"); // Open LinkedIn profile in a web browser
+                openWebLink("www.linkedin.com/in/ali-abdelmoaty10"); // Open LinkedIn profile in a web browser
             }
         });
          github.addActionListener(new ActionListener() {
