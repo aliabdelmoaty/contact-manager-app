@@ -69,6 +69,8 @@ public class Project extends JFrame {
                 SQLServer.getContact(table);
             } else {
                 SQLServer.createContactTable();
+                SQLServer.getContact(table);
+
             }
 
             // Create a new instance of the Project class, passing in the necessary

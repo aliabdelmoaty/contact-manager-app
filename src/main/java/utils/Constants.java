@@ -94,7 +94,7 @@ public abstract class Constants {
     }
 
     // SQL queries and statements
-    public static final String CREATE_CONTACT = "CREATE TABLE IF NOT EXISTS contacts (id INT AUTO_INCREMENT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, phone INTEGER NOT NULL, address TEXT NOT NULL, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    public static final String CREATE_CONTACT = "CREATE TABLE IF NOT EXISTS ali (id INT AUTO_INCREMENT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, phone INTEGER NOT NULL, address TEXT NOT NULL, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
     public static final String INSERT_CONTACT = "INSERT INTO contacts(name, email, phone, address) VALUES (?, ?, ?, ?)";
     public static final String DELETE_CONTACT = "DELETE FROM contacts WHERE id = ?";
     public static final String GET_CONTACT = "SELECT * FROM contacts";
