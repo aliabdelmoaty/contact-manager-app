@@ -20,12 +20,12 @@ This is a Java project that uses JDBC to connect to a MySQL database. It provide
 4. open the first two modules.
   ![XAMPP Logo](https://github.com/aliabdelmoaty/contact-manager-app/raw/main/src/main/resources/icons/XAMPP.png)
 
-6. create database in http://127.1.1.0/phpmyadmin/index.php?route=/server/databases name data is 'contacts' and type is 'Collation'
+
+5. create database in http://127.1.1.0/phpmyadmin/index.php?route=/server/databases name data is 'contacts' and type is 'Collation'
 
 
-"If you haven't done the previous step, which is step 6, take this step."
-7. Update the `JDBC_URL`, `userName`, and `password` in [`SQLServer.java`](src/main/java/logic/SQLServer.java) to match your MySQL server details
-8. Run the project using your preferred IDE or from the command line with `mvn exec:java`
+6. Update the `JDBC_URL`, `userName`, and `password` in [`SQLServer.java`](src/main/java/logic/SQLServer.java) to match your MySQL server details "If you haven't done the previous step, which is step 5, take this step."
+7. Run the project using your preferred IDE or from the command line with `mvn exec:java`
 
 
 ## Design 
