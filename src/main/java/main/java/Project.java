@@ -27,6 +27,17 @@ public class Project extends JFrame {
         setLayout(null); // Set the layout of the JFrame to null
         setDefaultCloseOperation(EXIT_ON_CLOSE); // Set default close operation
         setResizable(false);
+        
+        setBoundsComponents(labelsAndTextFields, buttonsAdd, table, buttonEdit, searchButton, linePanel, modeBy);
+
+        // Add components to the JFrame
+        addComponents(labelsAndTextFields, buttonsAdd, table, buttonEdit, searchButton, linePanel, modeBy);
+
+        setVisible(true); // Set the JFrame as visible
+    }
+
+    private void setBoundsComponents(LabelsAndTextFields labelsAndTextFields, ButtonsAdd buttonsAdd, Table table,
+            ButtonEdit buttonEdit, SearchButton searchButton, LinePanel linePanel, ModeBy modeBy) {
         labelsAndTextFields.setBounds(0, 0, 210, 240); // Set bounds for LabelsAndTextFields panel
         buttonsAdd.setBounds(0, 0, 210, 280); // Set bounds for ButtonsAdd panel
         modeBy.setBounds(0, 300, 210, 300);
@@ -34,8 +45,10 @@ public class Project extends JFrame {
         table.setBounds(230, 80, 700, 400); // Set bounds for Table panel
         buttonEdit.setBounds(300, 500, 300, 200); // Set bounds for ButtonEdit panel
         searchButton.setBounds(230, 10, 650, 50); // Set bounds for SearchButton panel
+    }
 
-        // Add components to the JFrame
+    private void addComponents(LabelsAndTextFields labelsAndTextFields, ButtonsAdd buttonsAdd, Table table,
+            ButtonEdit buttonEdit, SearchButton searchButton, LinePanel linePanel, ModeBy modeBy) {
         this.add(linePanel);
         this.add(labelsAndTextFields);
         this.add(buttonsAdd);
@@ -44,8 +57,6 @@ public class Project extends JFrame {
 
         this.add(table);
         this.add(buttonEdit);
-
-        setVisible(true); // Set the JFrame as visible
     }
 
     // Main method to start the application

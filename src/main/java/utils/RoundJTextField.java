@@ -2,17 +2,15 @@ package utils;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Shape;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JTextField;
 
 // Custom JTextField with rounded corners and hint text
 public class RoundJTextField extends JTextField {
-    // Shape used for hit detection (checking if a point is inside the rounded rectangle)
-    private Shape shape;
+    // Shape used for hit detection (checking if a point is inside the rounded
+    // rectangle)
 
     // Constructor for RoundJTextField
     public RoundJTextField(String hint, int columns) {
@@ -67,17 +65,11 @@ public class RoundJTextField extends JTextField {
     // This method is called to paint the border of the component
     protected void paintBorder(Graphics g) {
         // Set the color to black for the border
-        g.setColor(Color.BLACK);
+        g.setColor(Color.black);
 
         // Draw a rounded rectangle as the border
-        g.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
+        g.drawRoundRect(0, 0, getWidth(), getHeight(), 15, 90);
     }
 
-    // This method checks if a point (x, y) is inside the rounded rectangle
-    public boolean contains(int x, int y) {
-        if (shape == null || !shape.getBounds().equals(getBounds())) {
-            shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
-        }
-        return shape.contains(x, y);
-    }
+    
 }

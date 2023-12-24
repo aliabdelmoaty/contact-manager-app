@@ -32,7 +32,7 @@ public class Button extends JButton {
 
                 // If the button is pressed, start a timer to reset the pressed state after a delay
                 if (isPressed) {
-                    Timer timer = new Timer(80, new ActionListener() {
+                    Timer timer = new Timer(50, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             isPressed = false;
@@ -46,7 +46,7 @@ public class Button extends JButton {
     }
 
     // Constructor taking the text and the color of the button
-    public Button(String text, Color bgColor, Color textColor) {
+    private Button(String text, Color bgColor, Color textColor) {
         super(text);
         setFont(new Font("Arial", Font.BOLD, 12));
         setContentAreaFilled(true);

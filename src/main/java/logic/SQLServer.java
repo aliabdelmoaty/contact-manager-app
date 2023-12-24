@@ -35,7 +35,7 @@ public class SQLServer {
                     "Error connecting to the database. Please check your network connection or server status.");
         }
     }
-
+ 
     // Creates the 'contacts' table in the database
     public static void createContactTable() throws HandleErrors {
         try {

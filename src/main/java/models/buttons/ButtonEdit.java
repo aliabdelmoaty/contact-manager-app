@@ -61,7 +61,6 @@ public class ButtonEdit extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Get selected row data from the table
-                // if()
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow >= 0) {
                     int id = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());

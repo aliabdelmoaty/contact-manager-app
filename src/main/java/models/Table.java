@@ -3,10 +3,6 @@ package models;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.RowFilter;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
@@ -38,7 +34,6 @@ public class Table extends JPanel {
         table.setRowSorter(sorter);
         add(scrollPane);
 
-        addTableSelectionListener();
     }
 
     // Get the row count of the table
@@ -72,30 +67,7 @@ public class Table extends JPanel {
         return table.getValueAt(row, column);
     }
 
-    // Add a selection listener to the table
-    private void addTableSelectionListener() {
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    // Add any specific actions to be performed on selection change
-                }
-            }
-        });
-    }
-    public void searchContactsByText(String searchText) {
-        TableRowSorter<DefaultTableModel> sorter = (TableRowSorter<DefaultTableModel>) table.getRowSorter();
-        
-        if (searchText.trim().length() == 0) {
-            // If search text is empty, reset the row filter
-            sorter.setRowFilter(null);
-        } else {
-            // Apply row filter with case-insensitive regex matching
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText));
-        }
-    }
     // Set preferred column widths for better table layout
     private void setColumnWidths() {
         table.getColumnModel().getColumn(0).setPreferredWidth(40);
